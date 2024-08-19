@@ -9,7 +9,23 @@
 <body>
     <div class="container">
         <h1>Register</h1>
+        <% if (errors && errors.length > 0) { %>
+            <ul>
+                <% errors.forEach(function(error) { %>
+                    <li><%= error.msg %></li>
+                <% }) %>
+            </ul>
+        <% } %>
+        <% if (success) { %>
+            <p><%= success %></p>
+            <script>
+                setTimeout(function() {
+                    window.location.href = '/login';
+                }, 3000); // Redirect after 3 seconds
+            </script>
+        <% } %>
         <form action="/register" method="POST">
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
             <label for="username">Username</label>
             <input type="text" id="username" name="username" required>
             
